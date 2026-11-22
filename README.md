@@ -21,6 +21,7 @@
 **FIGCRAFT-MCP** connects native offline vector design in **FigCraft** with AI coding agents—including **Antigravity**, **Claude Desktop**, **Cursor**, **Gemini CLI**, and custom autonomous workflows—powered by the **Model Context Protocol (MCP)**.
 
 It allows AI agents to interact with design documents through two distinct operational modes:
+
 1. **Interactive Live Mode:** Co-design side-by-side with your agent in a live FigCraft GUI window on port 9001.
 2. **Headless Automation Mode:** Execute programmatic vector builds, layer inspections, and asset exports in background CI/CD pipelines.
 
@@ -32,8 +33,10 @@ Before using this MCP toolkit, **you must have FigCraft installed** on your mach
 
 - **Official Repository:** [storytold/figcraft](https://github.com/storytold/figcraft)
   > *FigCraft: interface design and prototyping; an open-source, clean-room reimplementation of collaborative design workflows in pure Rust.*
+  >
 
 ### Installing FigCraft
+
 1. Download prebuilt binaries from the official [FigCraft Releases](https://github.com/storytold/figcraft/releases), or build from source using Rust:
    ```bash
    git clone https://github.com/storytold/figcraft.git
@@ -71,6 +74,7 @@ Before using this MCP toolkit, **you must have FigCraft installed** on your mach
 ## Operating Modes
 
 ### 1. Live Remote Mode (Interactive GUI)
+
 1. Start FigCraft with remote listening enabled:
    ```bash
    # Windows (Command Prompt / PowerShell)
@@ -88,6 +92,7 @@ Before using this MCP toolkit, **you must have FigCraft installed** on your mach
 3. Instruct your AI agent to design or modify components. Changes appear immediately on canvas.
 
 ### 2. Headless Mode (Background & CI/CD)
+
 Execute node manipulations, inspect layer hierarchies, and export files directly through `figcraft-cli` without a graphical window.
 
 ---
@@ -95,6 +100,7 @@ Execute node manipulations, inspect layer hierarchies, and export files directly
 ## Quickstart
 
 ### 1. Clone & Verify
+
 ```bash
 git clone https://github.com/DimNih/AGENT-MCP-FIGCRAFT.git
 cd AGENT-MCP-FIGCRAFT
@@ -104,11 +110,15 @@ python test-connection.py
 ```
 
 ### 2. Generate Client Configuration
+
 Generate the configuration matching your operating system and paths:
+
 ```bash
 python -m figcraft_mcp setup
 ```
+
 To write it directly to a file:
+
 ```bash
 python -m figcraft_mcp setup -w mcp_config.json
 ```
@@ -118,7 +128,9 @@ python -m figcraft_mcp setup -w mcp_config.json
 ## Client Integration
 
 ### Claude Desktop
+
 Add the following to your `claude_desktop_config.json`:
+
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 
@@ -134,6 +146,7 @@ Add the following to your `claude_desktop_config.json`:
 ```
 
 ### Antigravity & Cursor
+
 Copy the configuration output from `python -m figcraft_mcp setup` into your workspace MCP settings.
 
 ---
@@ -178,6 +191,7 @@ with FigCraftClient(mode="live", port=9001) as client:
 ```
 
 Run the built-in interactive demo:
+
 ```bash
 python -m figcraft_mcp demo
 ```
@@ -186,10 +200,10 @@ python -m figcraft_mcp demo
 
 ## Environment Variables
 
-| Variable | Description |
-| :--- | :--- |
-| `FIGCRAFT_CLI_PATH` | Explicit path to `figcraft-cli` executable. |
-| `FIGCRAFT_PATH` | Explicit path to `figcraft` GUI executable. |
+| Variable                     | Description                                                         |
+| :--------------------------- | :------------------------------------------------------------------ |
+| `FIGCRAFT_CLI_PATH`        | Explicit path to `figcraft-cli` executable.                       |
+| `FIGCRAFT_PATH`            | Explicit path to `figcraft` GUI executable.                       |
 | `FIGCRAFT_AUTOMATION_ROOT` | Custom root directory for headless operations (default: user home). |
 
 ---

@@ -3,7 +3,7 @@
 import json
 import subprocess
 import time
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 from .config import find_figcraft_cli, get_default_automation_root, DEFAULT_PORT
 
 
@@ -53,13 +53,25 @@ class FigCraftClient:
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True,
-            bufsize=1
+            text=True
         )
+
+        # Quick check if process failed to start (e.g. port not reachable)
+        time.sleep(0.15)
+        if self.proc.poll() is not None:
+            err = self.proc.stderr.read() if self.proc.stderr else ""
+            raise ConnectionError(
+                f"Gagal menghubungkan ke FigCraft (exit code {self.proc.returncode}): {err.strip()}"
+            )
+
         self.initialize()
 
     def send(self, method: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Send a JSON-RPC 2.0 message and read the response."""
+        if self.proc.poll() is not None:
+            err = self.proc.stderr.read() if self.proc.stderr else ""
+            raise ConnectionError(f"Koneksi FigCraft terputus: {err.strip()}")
+
         self.req_id += 1
         msg = {
             "jsonrpc": "2.0",
@@ -70,11 +82,18 @@ class FigCraftClient:
         if not self.proc.stdin or not self.proc.stdout:
             raise RuntimeError("FigCraft MCP process standard I/O is closed.")
 
-        self.proc.stdin.write(json.dumps(msg) + "\n")
-        self.proc.stdin.flush()
+        try:
+            self.proc.stdin.write(json.dumps(msg) + "\n")
+            self.proc.stdin.flush()
+        except OSError as e:
+            err = self.proc.stderr.read() if self.proc.stderr else ""
+            raise ConnectionError(f"Gagal mengirim instruksi ke FigCraft: {e} ({err.strip()})")
 
         line = self.proc.stdout.readline()
         if not line:
+            if self.proc.poll() is not None:
+                err = self.proc.stderr.read() if self.proc.stderr else ""
+                raise ConnectionError(f"FigCraft menutup koneksi: {err.strip()}")
             return {}
         try:
             return json.loads(line)
@@ -83,7 +102,7 @@ class FigCraftClient:
 
     def initialize(self) -> Dict[str, Any]:
         """Performs protocol handshake."""
-        return self.send("initialize", {
+        res = self.send("initialize", {
             "protocolVersion": "2024-11-05",
             "capabilities": {},
             "clientInfo": {
@@ -91,6 +110,10 @@ class FigCraftClient:
                 "version": "0.2.0"
             }
         })
+        if not res or res.get("error"):
+            err_msg = res.get("error", {}).get("message", "Unknown error during initialization")
+            raise ConnectionError(f"FigCraft MCP initialization failed: {err_msg}")
+        return res
 
     def call_tool(self, name: str, args: Dict[str, Any], delay: float = 0.05) -> Dict[str, Any]:
         """Call any native FigCraft MCP tool by name."""
@@ -280,7 +303,10 @@ class FigCraftClient:
                 self.proc.terminate()
                 self.proc.wait(timeout=2.0)
             except Exception:
-                self.proc.kill()
+                try:
+                    self.proc.kill()
+                except Exception:
+                    pass
 
     def __enter__(self):
         return self
@@ -291,4 +317,3 @@ class FigCraftClient:
 
 # Backward compatibility alias
 FigCraftLiveAgent = FigCraftClient
-

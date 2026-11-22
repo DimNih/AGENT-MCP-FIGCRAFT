@@ -35,32 +35,43 @@ def cmd_check(args):
 
     if not cli_path:
         print("\n[!] PERINGATAN: figcraft-cli tidak ditemukan secara otomatis.")
-        print("    Harap pasang FigCraft atau atur variabel lingkungan:")
-        print("    set FIGCRAFT_CLI_PATH=C:\\path\\to\\figcraft-cli.exe")
+        print("    Harap pasang FigCraft dari https://github.com/storytold/figcraft")
         return
 
+    # [1] Headless Mode Test
     print("\n[1] Menguji Headless MCP Server...")
     try:
         with FigCraftClient(mode="headless", cli_path=cli_path, timeout=5.0) as client:
-            print("    [✓] Headless MCP Berfungsi Normal!")
-            headless_ok = True
+            doc = client.inspect_document()
+            if doc and not doc.get("isError"):
+                print("    [✓] Headless MCP Berfungsi Normal!")
+                headless_ok = True
+            else:
+                print("    [-] Headless MCP gagal merespons dokumen.")
+                headless_ok = False
     except Exception as e:
         print(f"    [-] Gagal menguji Headless MCP: {e}")
         headless_ok = False
 
+    # [2] Live GUI Remote Mode Test
     print(f"\n[2] Menguji Live GUI Remote (Port {args.port})...")
     try:
         with FigCraftClient(mode="live", port=args.port, cli_path=cli_path, timeout=3.0) as client:
-            print(f"    [✓] Live GUI Terhubung di port {args.port}!")
-            live_ok = True
+            doc = client.inspect_document()
+            if doc and not doc.get("isError"):
+                print(f"    [✓] Live GUI Terhubung di port {args.port}!")
+                live_ok = True
+            else:
+                raise ConnectionError("Aplikasi GUI tidak merespons.")
     except Exception as e:
-        print(f"    [-] Tidak aktif di port {args.port} (Aplikasi GUI belum dibuka dengan --control {args.port})")
+        print(f"    [-] Standby di port {args.port}: {e}")
+        print("        (Buka jendela FigCraft dengan 'start-figcraft-live.bat' untuk mode Live)")
         live_ok = False
 
     print("\n" + "=" * 60)
     print("RINGKASAN STATUS:")
     print(f" • Headless Mode : {'SIAP (OK)' if headless_ok else 'GAGAL'}")
-    print(f" • Live GUI Mode : {'SIAP (OK)' if live_ok else 'STANDBY (Jalankan: figcraft-mcp live)'}")
+    print(f" • Live GUI Mode : {'SIAP (OK)' if live_ok else 'STANDBY (Aplikasi GUI belum dibuka dengan --control ' + str(args.port) + ')'}")
     print("=" * 60)
 
 
@@ -133,7 +144,6 @@ def main():
 
     args = parser.parse_args()
     if not args.command:
-        # Default fallback to check
         cmd_check(argparse.Namespace(port=DEFAULT_PORT))
     elif args.command == "check":
         cmd_check(args)
@@ -147,4 +157,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
