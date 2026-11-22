@@ -58,3 +58,4 @@ fi
 echo "[*] Launching: $BIN --control 9001"
 "$BIN" --control 9001 &
 echo "[✓] FigCraft started on port 9001. Happy designing!"
+

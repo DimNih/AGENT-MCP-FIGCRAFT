@@ -291,3 +291,4 @@ class FigCraftClient:
 
 # Backward compatibility alias
 FigCraftLiveAgent = FigCraftClient
+

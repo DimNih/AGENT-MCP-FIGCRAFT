@@ -166,3 +166,4 @@ def generate_mcp_config_dict(cli_path: Optional[str] = None, root_path: Optional
             }
         }
     }
+

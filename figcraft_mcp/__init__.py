@@ -19,3 +19,4 @@ __all__ = [
     "get_default_automation_root",
     "generate_mcp_config_dict",
 ]
+

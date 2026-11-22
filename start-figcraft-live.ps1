@@ -1,4 +1,4 @@
-﻿# PowerShell Launcher for FigCraft Live Remote Mode
+# PowerShell Launcher for FigCraft Live Remote Mode
 $ErrorActionPreference = "Stop"
 
 Write-Host "========================================================" -ForegroundColor Cyan

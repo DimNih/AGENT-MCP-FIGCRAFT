@@ -34,3 +34,4 @@ figcraft-mcp = "figcraft_mcp.cli:main"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["figcraft_mcp*"]
+
