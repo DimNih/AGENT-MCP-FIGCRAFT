@@ -3,14 +3,14 @@
 </p>
 
 <p align="center">
-  <strong>Universal Model Context Protocol (MCP) Bridge &amp; Real-time AI Co-Designing for FigCraft</strong>
+  <strong>Universal Model Context Protocol (MCP) bridge and automation toolkit for FigCraft.</strong>
 </p>
 
 <p align="center">
   <a href="https://github.com/DimNih/AGENT-MCP-FIGCRAFT/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/DimNih/AGENT-MCP-FIGCRAFT/ci.yml?branch=main&label=CI&logo=github" alt="CI Status"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/Python-3.8+-3776AB.svg?logo=python&logoColor=white" alt="Python 3.8+"></a>
-  <a href="https://modelcontextprotocol.io/"><img src="https://img.shields.io/badge/MCP%20Protocol-2024--11--05-FF6F00.svg" alt="MCP Protocol"></a>
+  <a href="https://modelcontextprotocol.io/"><img src="https://img.shields.io/badge/MCP-2024--11--05-gray.svg" alt="MCP Protocol"></a>
   <a href="https://github.com/DimNih/AGENT-MCP-FIGCRAFT/stargazers"><img src="https://img.shields.io/github/stars/DimNih/AGENT-MCP-FIGCRAFT?style=social" alt="GitHub Stars"></a>
 </p>
 
@@ -20,20 +20,13 @@
 
 **FIGCRAFT-MCP** connects native offline vector design in **FigCraft** with AI coding agents—including **Antigravity**, **Claude Desktop**, **Cursor**, **Gemini CLI**, and custom autonomous workflows—powered by the **Model Context Protocol (MCP)**.
 
-Whether you want an AI copilot to build user interfaces side-by-side with you in real time, or generate vector assets in CI/CD background pipelines, this toolkit delivers a smooth, plug-and-play experience.
+It allows AI agents to interact with design documents through two distinct operational modes:
+1. **Interactive Live Mode:** Co-design side-by-side with your agent in a live FigCraft GUI window on port 9001.
+2. **Headless Automation Mode:** Execute programmatic vector builds, layer inspections, and asset exports in background CI/CD pipelines.
 
 ---
 
-## Key Highlights
-
-- ⚡ **Split-Screen Live Co-Designing (Port 9001):** Watch your AI agent draw frames, buttons, typography, and card components step-by-step directly onto your desktop canvas.
-- 🛠 **Headless Automation Mode:** Run automated layout generation, exports (PNG, SVG, PDF), and document inspections completely in the background.
-- 🌍 **Universal & Cross-Platform:** Automatically locates executables and resolves workspace directories across **Windows**, **macOS**, and **Linux** without manual path hardcoding.
-- 🪶 **Zero Heavy Dependencies:** Built entirely with Python's standard library for maximum reliability and instant setup.
-
----
-
-## Operating Modes
+## Architecture
 
 ```
                +---------------------------------------+
@@ -55,8 +48,12 @@ Whether you want an AI copilot to build user interfaces side-by-side with you in
        +-----------------------+        +-----------------------+
 ```
 
+---
+
+## Operating Modes
+
 ### 1. Live Remote Mode (Interactive GUI)
-1. Launch FigCraft in remote listening mode:
+1. Start FigCraft with remote listening enabled:
    ```bash
    # Windows (Command Prompt / PowerShell)
    start-figcraft-live.bat
@@ -66,14 +63,14 @@ Whether you want an AI copilot to build user interfaces side-by-side with you in
    # macOS / Linux
    ./scripts/start-figcraft-live.sh
 
-   # Or via Python CLI:
+   # Or using Python CLI:
    python -m figcraft_mcp live
    ```
 2. Place the FigCraft window side-by-side with your AI chat window.
-3. Prompt your agent to create or modify components—watch elements assemble live!
+3. Instruct your AI agent to design or modify components. Changes appear immediately on canvas.
 
 ### 2. Headless Mode (Background & CI/CD)
-Generate layouts, read layer hierarchies, and export assets programmatically without displaying a window.
+Execute node manipulations, inspect layer hierarchies, and export files directly through `figcraft-cli` without a graphical window.
 
 ---
 
@@ -88,22 +85,22 @@ cd AGENT-MCP-FIGCRAFT
 python test-connection.py
 ```
 
-### 2. Generate Your Client Configuration
-Generate the exact configuration tailored to your operating system:
+### 2. Generate Client Configuration
+Generate the configuration matching your operating system and paths:
 ```bash
 python -m figcraft_mcp setup
 ```
-Or write it directly to your file:
+To write it directly to a file:
 ```bash
 python -m figcraft_mcp setup -w mcp_config.json
 ```
 
 ---
 
-## AI Client Configuration
+## Client Integration
 
 ### Claude Desktop
-Add this to your `claude_desktop_config.json`:
+Add the following to your `claude_desktop_config.json`:
 - **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 - **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
 
@@ -119,7 +116,7 @@ Add this to your `claude_desktop_config.json`:
 ```
 
 ### Antigravity & Cursor
-Copy the configuration generated by `python -m figcraft_mcp setup` into your project's MCP settings.
+Copy the configuration output from `python -m figcraft_mcp setup` into your workspace MCP settings.
 
 ---
 
@@ -130,39 +127,39 @@ from figcraft_mcp import FigCraftClient
 
 # Connect to the live desktop session
 with FigCraftClient(mode="live", port=9001) as client:
-    # Create main container
+    # 1. Create main container
     card_id = client.create_frame(
-        name="Profile Card",
-        x=50,
-        y=50,
-        width=340,
-        height=190,
-        props={"cornerRadius": 16, "fills": [{"type": "solid", "color": "#1E1E2E"}]}
+        name="Auth Card",
+        x=60,
+        y=48,
+        width=360,
+        height=200,
+        props={"cornerRadius": 8, "fills": [{"type": "solid", "color": "#171C25"}]}
     )
 
-    # Add avatar circle
-    client.create_ellipse(
-        name="Avatar",
-        x=24,
-        y=24,
-        width=48,
-        height=48,
-        parent=card_id,
-        props={"fills": [{"type": "solid", "color": "#89B4FA"}]}
-    )
-
-    # Add title text
+    # 2. Add text layer
     client.create_text(
-        text="Alex Rivera",
-        name="User Name",
-        x=88,
+        text="Access Gateway",
+        name="Header",
+        x=24,
         y=28,
         parent=card_id,
-        props={"fontSize": 16, "fontWeight": "bold", "fills": [{"type": "solid", "color": "#CDD6F4"}]}
+        props={"fontSize": 16, "fills": [{"type": "solid", "color": "#F0F3F6"}]}
+    )
+
+    # 3. Add primary button
+    client.create_rect(
+        name="Button",
+        x=24,
+        y=120,
+        width=120,
+        height=36,
+        parent=card_id,
+        props={"cornerRadius": 4, "fills": [{"type": "solid", "color": "#E25624"}]}
     )
 ```
 
-Run the included interactive visual demo:
+Run the built-in interactive demo:
 ```bash
 python -m figcraft_mcp demo
 ```
@@ -181,10 +178,10 @@ python -m figcraft_mcp demo
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions and bug reports are welcome. Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
 ## License
 
-This project is licensed under the terms of the [MIT License](LICENSE).
+Distributed under the [MIT License](LICENSE).

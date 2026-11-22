@@ -25,3 +25,4 @@ Thank you for your interest in improving FigCraft MCP! We welcome contributions 
 - Keep the core client free from required heavy external dependencies (standard library first).
 - Ensure all path operations remain cross-platform (Windows, macOS, Linux).
 - Add docstrings to newly introduced helper methods.
+

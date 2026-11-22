@@ -1,89 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
-  <defs>
-    <!-- Background Gradient -->
-    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="50%" stop-color="#1E1B4B"/>
-      <stop offset="100%" stop-color="#090D16"/>
-    </linearGradient>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%">
+  <!-- Solid Dark Graphite Base -->
+  <rect width="256" height="256" rx="48" fill="#111317"/>
+  <rect width="254" height="254" x="1" y="1" rx="47" fill="none" stroke="#222733" stroke-width="2"/>
 
-    <!-- Vibrant Neon Gradients -->
-    <linearGradient id="cyan-violet" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="50%" stop-color="#818CF8"/>
-      <stop offset="100%" stop-color="#C084FC"/>
-    </linearGradient>
-
-    <linearGradient id="emerald-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#34D399"/>
-      <stop offset="100%" stop-color="#06B6D4"/>
-    </linearGradient>
-
-    <linearGradient id="amber-rose" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F59E0B"/>
-      <stop offset="100%" stop-color="#F43F5E"/>
-    </linearGradient>
-
-    <!-- Glow Filter -->
-    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="10" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6"/>
-    </filter>
-  </defs>
-
-  <!-- Base Rounded Container -->
-  <rect width="512" height="512" rx="112" fill="url(#bg-grad)"/>
-  
-  <!-- Subtle Grid Accent -->
-  <g opacity="0.08" stroke="#FFFFFF" stroke-width="1.5">
-    <line x1="64" y1="0" x2="64" y2="512"/>
-    <line x1="192" y1="0" x2="192" y2="512"/>
-    <line x1="320" y1="0" x2="320" y2="512"/>
-    <line x1="448" y1="0" x2="448" y2="512"/>
-    <line x1="0" y1="64" x2="512" y2="64"/>
-    <line x1="0" y1="192" x2="512" y2="192"/>
-    <line x1="0" y1="320" x2="512" y2="320"/>
-    <line x1="0" y1="448" x2="512" y2="448"/>
+  <!-- Technical Canvas Grid Reference (Hairline 1px) -->
+  <g stroke="#1D222C" stroke-width="1">
+    <line x1="32" y1="0" x2="32" y2="256"/>
+    <line x1="128" y1="0" x2="128" y2="256"/>
+    <line x1="224" y1="0" x2="224" y2="256"/>
+    <line x1="0" y1="32" x2="256" y2="32"/>
+    <line x1="0" y1="128" x2="256" y2="128"/>
+    <line x1="0" y1="224" x2="256" y2="224"/>
   </g>
 
-  <!-- Outer Glowing Node Hexagon/Ring -->
-  <circle cx="256" cy="256" r="184" fill="none" stroke="url(#cyan-violet)" stroke-width="3" stroke-dasharray="12 10" opacity="0.4"/>
-  
-  <!-- AI / MCP Connectivity Neural Nodes -->
-  <g stroke="url(#cyan-violet)" stroke-width="2.5" opacity="0.6">
-    <line x1="256" y1="84" x2="256" y2="160"/>
-    <line x1="107" y1="342" x2="176" y2="290"/>
-    <line x1="405" y1="342" x2="336" y2="290"/>
+  <!-- Vector Construction Guides (Blueprints) -->
+  <g stroke="#2C3342" stroke-width="1.5">
+    <!-- Tangent Guideline -->
+    <line x1="48" y1="176" x2="208" y2="80"/>
+    <circle cx="48" cy="176" r="3" fill="#2C3342"/>
+    <circle cx="208" cy="80" r="3" fill="#2C3342"/>
   </g>
 
-  <!-- Node Dots -->
-  <circle cx="256" cy="84" r="8" fill="#38BDF8" filter="url(#neon-glow)"/>
-  <circle cx="107" cy="342" r="8" fill="#818CF8" filter="url(#neon-glow)"/>
-  <circle cx="405" cy="342" r="8" fill="#C084FC" filter="url(#neon-glow)"/>
-
-  <!-- Main FigCraft "F" & Vector Pen Craft Monogram -->
-  <g filter="url(#subtle-shadow)">
-    <!-- Top Geometric Craft Layer (Headless / Vector Tool) -->
-    <path d="M168 140 H344 C366 140 380 158 376 180 L360 250 C356 268 340 282 322 282 H168 Z" fill="url(#cyan-violet)"/>
+  <!-- Flat Vector Pen & Craft Node Geometry -->
+  <g fill="none" stroke-linejoin="round">
+    <!-- Pen Tool Barrel (Solid Neutral White & Off-White) -->
+    <path d="M128 44 L180 96 L154 122 L102 70 Z" fill="#E5E7EB"/>
+    <path d="M102 70 L154 122 L138 138 L86 86 Z" fill="#D1D5DB"/>
     
-    <!-- Middle Vector Intersection (Live Bridge Hub) -->
-    <path d="M168 250 H300 C318 250 332 264 328 282 L316 332 C312 350 296 362 278 362 H168 Z" fill="url(#emerald-cyan)"/>
+    <!-- Pen Nib Metal -->
+    <path d="M128 148 L170 106 L154 90 L112 132 Z" fill="#9CA3AF"/>
+    <path d="M128 148 L112 132 L78 166 L86 186 L106 194 Z" fill="#4B5563"/>
     
-    <!-- Vertical Anchor Spine -->
-    <path d="M168 140 H220 V380 C220 393 209 404 196 404 H192 C178 404 168 393 168 380 Z" fill="#FFFFFF" opacity="0.95"/>
+    <!-- Nib Tip Needle -->
+    <polygon points="78,166 62,206 102,190 86,186" fill="#F3F4F6"/>
     
-    <!-- Floating Precision AI Sparkle Pin -->
-    <path d="M370 110 L380 135 L405 145 L380 155 L370 180 L360 155 L335 145 L360 135 Z" fill="url(#amber-rose)" filter="url(#neon-glow)"/>
+    <!-- Ink Channel / Slit (Solid Dark Hairline) -->
+    <line x1="62" y1="206" x2="98" y2="170" stroke="#111317" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="102" cy="166" r="3.5" fill="#111317"/>
   </g>
 
-  <!-- Core MCP Socket Indicator -->
-  <circle cx="256" cy="216" r="16" fill="#0F172A" stroke="#38BDF8" stroke-width="4"/>
-  <circle cx="256" cy="216" r="6" fill="#38BDF8"/>
+  <!-- Precision Anchor Point (Solid Rust / International Orange Accent) -->
+  <g>
+    <!-- Handle Bar Lines -->
+    <line x1="128" y1="128" x2="188" y2="128" stroke="#E25624" stroke-width="1.5"/>
+    <line x1="128" y1="128" x2="68" y2="128" stroke="#E25624" stroke-width="1.5"/>
+    
+    <!-- Handle Endpoint Dots -->
+    <circle cx="68" cy="128" r="3" fill="#E25624"/>
+    <circle cx="188" cy="128" r="3" fill="#E25624"/>
+    
+    <!-- Active Center Anchor Point (Solid Square Node) -->
+    <rect x="122" y="122" width="12" height="12" fill="#E25624"/>
+    <rect x="124" y="124" width="8" height="8" fill="#FFFFFF"/>
+  </g>
 </svg>

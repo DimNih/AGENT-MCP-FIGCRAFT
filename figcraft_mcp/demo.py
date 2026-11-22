@@ -5,127 +5,130 @@ from .client import FigCraftClient
 
 
 def run_demo(mode: str = "live", port: int = 9001):
-    """Draws a clean modern UI card component into FigCraft."""
+    """Draws a clean, solid, unslop UI component into FigCraft."""
     print(f"[*] Menghubungkan ke FigCraft (Mode: {mode.upper()})...")
     try:
         with FigCraftClient(mode=mode, port=port) as client:
             print("[+] Terhubung! Mulai merakit komponen UI...")
 
-            # 1. Main Card Container (Glassmorphism / Modern Card)
+            # 1. Main Card Container (Solid dark surface, 1px crisp border)
             card_id = client.create_frame(
-                name="Analytics Card",
-                x=100,
-                y=100,
-                width=360,
+                name="Dialog_Gateway",
+                x=60,
+                y=48,
+                width=380,
                 height=220,
                 props={
-                    "fills": [{"type": "solid", "color": "#1E1E2E"}],
-                    "cornerRadius": 16,
-                    "strokes": [{"type": "solid", "color": "#313244"}],
+                    "fills": [{"type": "solid", "color": "#171C25"}],
+                    "cornerRadius": 8,
+                    "strokes": [{"type": "solid", "color": "#313847"}],
                     "strokeWeight": 1
                 },
                 delay=0.1
             )
-            print(f"  [✓] Frame Utama dibuat (ID: {card_id})")
+            print(f"  [✓] Frame dibuat (ID: {card_id})")
 
-            # 2. Status Badge / Icon Pill
-            badge_id = client.create_rect(
-                name="Badge Background",
+            # 2. Status Label
+            client.create_text(
+                text="SYSTEM / ACTIVE",
+                name="Status Label",
                 x=24,
                 y=24,
-                width=80,
-                height=28,
                 parent=card_id,
                 props={
-                    "fills": [{"type": "solid", "color": "#A6E3A133"}],
-                    "cornerRadius": 14
-                },
-                delay=0.08
-            )
-            client.create_text(
-                text="● ACTIVE",
-                name="Badge Text",
-                x=36,
-                y=30,
-                parent=card_id,
-                props={
-                    "fills": [{"type": "solid", "color": "#A6E3A1"}],
+                    "fills": [{"type": "solid", "color": "#7EE787"}],
                     "fontSize": 11,
                     "fontWeight": "bold"
                 },
                 delay=0.08
             )
 
-            # 3. Main Metric Title & Number
+            # 3. Main Title & Description
             client.create_text(
-                text="Monthly Active Users",
+                text="Gateway Authentication",
                 name="Card Title",
                 x=24,
-                y=70,
+                y=48,
                 parent=card_id,
                 props={
-                    "fills": [{"type": "solid", "color": "#A6ADC8"}],
-                    "fontSize": 13
-                },
-                delay=0.08
-            )
-            client.create_text(
-                text="128,450",
-                name="Card Value",
-                x=24,
-                y=95,
-                parent=card_id,
-                props={
-                    "fills": [{"type": "solid", "color": "#CDD6F4"}],
-                    "fontSize": 28,
+                    "fills": [{"type": "solid", "color": "#F0F3F6"}],
+                    "fontSize": 18,
                     "fontWeight": "bold"
                 },
                 delay=0.08
             )
-
-            # 4. Progress / Growth Indicator
-            client.create_rect(
-                name="Progress Track",
-                x=24,
-                y=150,
-                width=312,
-                height=8,
-                parent=card_id,
-                props={
-                    "fills": [{"type": "solid", "color": "#313244"}],
-                    "cornerRadius": 4
-                },
-                delay=0.08
-            )
-            client.create_rect(
-                name="Progress Fill",
-                x=24,
-                y=150,
-                width=230,
-                height=8,
-                parent=card_id,
-                props={
-                    "fills": [{"type": "solid", "color": "#89B4FA"}],
-                    "cornerRadius": 4
-                },
-                delay=0.08
-            )
             client.create_text(
-                text="+18.4% dari bulan lalu",
-                name="Growth Text",
+                text="Node IPC listening on port 9001 via MCP protocol.",
+                name="Card Description",
                 x=24,
-                y=170,
+                y=76,
                 parent=card_id,
                 props={
-                    "fills": [{"type": "solid", "color": "#A6E3A1"}],
+                    "fills": [{"type": "solid", "color": "#8B949E"}],
                     "fontSize": 12
                 },
                 delay=0.08
             )
 
-            print("[★] Demo UI Card berhasil digambar di FigCraft!")
+            # 4. Text Input Field Box (Solid neutral raised surface)
+            client.create_rect(
+                name="Input Box",
+                x=24,
+                y=112,
+                width=332,
+                height=36,
+                parent=card_id,
+                props={
+                    "fills": [{"type": "solid", "color": "#1F2531"}],
+                    "cornerRadius": 4,
+                    "strokes": [{"type": "solid", "color": "#313847"}],
+                    "strokeWeight": 1
+                },
+                delay=0.08
+            )
+            client.create_text(
+                text="session_token: #f0a92b... ready",
+                name="Input Placeholder",
+                x=36,
+                y=122,
+                parent=card_id,
+                props={
+                    "fills": [{"type": "solid", "color": "#6E7686"}],
+                    "fontSize": 12
+                },
+                delay=0.08
+            )
+
+            # 5. Primary Action Button (Solid Rust / International Orange Accent)
+            btn_id = client.create_rect(
+                name="Primary Button",
+                x=24,
+                y=164,
+                width=110,
+                height=32,
+                parent=card_id,
+                props={
+                    "fills": [{"type": "solid", "color": "#E25624"}],
+                    "cornerRadius": 4
+                },
+                delay=0.08
+            )
+            client.create_text(
+                text="AUTHENTICATE",
+                name="Button Text",
+                x=38,
+                y=173,
+                parent=card_id,
+                props={
+                    "fills": [{"type": "solid", "color": "#FFFFFF"}],
+                    "fontSize": 11,
+                    "fontWeight": "bold"
+                },
+                delay=0.08
+            )
+
+            print("[✓] Komponen UI solid berhasil digambar di FigCraft!")
             return True
     except Exception as e:
         print(f"[-] Gagal menjalankan demo: {e}")
         return False
-

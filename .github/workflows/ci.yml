@@ -28,3 +28,4 @@ jobs:
         python -m compileall figcraft_mcp
         python -c "import figcraft_mcp; print('Import successful! Version:', figcraft_mcp.__version__)"
         python -m figcraft_mcp.config
+
