@@ -1,0 +1,4 @@
+# Python dependencies (Standard library only; zero mandatory third-party packages required)
+# Optional development dependencies:
+# pytest>=7.0.0
+# black>=23.0.0
