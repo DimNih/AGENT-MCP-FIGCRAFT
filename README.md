@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="FigCraft MCP Banner" width="100%">
+  <img src="assets/banner.png" alt="FigCraft MCP Banner" width="100%">
 </p>
 
 <p align="center">
@@ -23,6 +23,24 @@
 It allows AI agents to interact with design documents through two distinct operational modes:
 1. **Interactive Live Mode:** Co-design side-by-side with your agent in a live FigCraft GUI window on port 9001.
 2. **Headless Automation Mode:** Execute programmatic vector builds, layer inspections, and asset exports in background CI/CD pipelines.
+
+---
+
+## Prerequisites (Must Install FigCraft First)
+
+Before using this MCP toolkit, **you must have FigCraft installed** on your machine.
+
+- **Official Repository:** [storytold/figcraft](https://github.com/storytold/figcraft)
+  > *FigCraft: interface design and prototyping; an open-source, clean-room reimplementation of collaborative design workflows in pure Rust.*
+
+### Installing FigCraft
+1. Download prebuilt binaries from the official [FigCraft Releases](https://github.com/storytold/figcraft/releases), or build from source using Rust:
+   ```bash
+   git clone https://github.com/storytold/figcraft.git
+   cd figcraft
+   cargo build --release
+   ```
+2. Verify that `figcraft` (the desktop GUI application) and `figcraft-cli` (the CLI and MCP engine) are installed on your machine.
 
 ---
 
